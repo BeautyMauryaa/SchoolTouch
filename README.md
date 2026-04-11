@@ -11,6 +11,7 @@ Timetable & Schedule	Unified Page View for weekly periods, exams, and special ev
 
 Homework & Materials	Teachers upload files; students submit homework; parents track status.	Teacher, Student, Parent
 
+
 Exams & Results	Create exams, submit/publish results, enforce security rules (e.g., hiding invigilator name from students).	Admin, Teacher, Student, Parent
 
 Fees Management	Admin sets fee structures; Parent views fees and tracks payment status.	Admin, Parent, Student
