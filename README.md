@@ -8,11 +8,17 @@ Module	Key Functionality	Primary Roles
 User Management	Login/Logout for Admin, Teacher, Student, Parent; JWT-based security.	All
 Class & Subject	Centralized management of classes (with sections) and class-wise subject assignment.	Admin, Teacher
 Timetable & Schedule	Unified Page View for weekly periods, exams, and special events (holidays, PTMs).	Admin (Edit), Teacher/Student/Parent (View)
+
 Homework & Materials	Teachers upload files; students submit homework; parents track status.	Teacher, Student, Parent
+
 Exams & Results	Create exams, submit/publish results, enforce security rules (e.g., hiding invigilator name from students).	Admin, Teacher, Student, Parent
+
 Fees Management	Admin sets fee structures; Parent views fees and tracks payment status.	Admin, Parent, Student
+
 Real-time Chat	Private, secure chat between Teachers and Parents of their assigned classes (via Socket.io).	Teacher, Parent
+
 Announcements	Target announcements to specific classes, roles, or the entire school.	Admin, Teacher (Create)
+
 🛠️ Setup Guide: How to Run Locally
 Follow these steps to get a copy of the project up and running on your local machine.
 
