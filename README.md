@@ -7,6 +7,7 @@ The application is built on the MERN stack (MongoDB, Express, React, Node.js) wi
 Module	Key Functionality	Primary Roles
 User Management	Login/Logout for Admin, Teacher, Student, Parent; JWT-based security.	All
 Class & Subject	Centralized management of classes (with sections) and class-wise subject assignment.	Admin, Teacher
+
 Timetable & Schedule	Unified Page View for weekly periods, exams, and special events (holidays, PTMs).	Admin (Edit), Teacher/Student/Parent (View)
 
 Homework & Materials	Teachers upload files; students submit homework; parents track status.	Teacher, Student, Parent
