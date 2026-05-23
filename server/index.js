@@ -7,7 +7,6 @@ const cors = require("cors");
 const path = require("path");
 const connectDB = require("./config/db");
 
-dotenv.config();
 
 // Connect to database
 connectDB();
@@ -16,15 +15,21 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://schooltouchr.onrender.com/",      // same as above
+    ],
     methods: ["GET", "POST"],
   },
 });
 
-app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5000",
+    origin: [
+      "http://localhost:3000",                        // local dev frontend
+      "https://schooltouch-server.onrender.com",      // your deployed backend (for same-origin calls)
+      "https://schooltouchr.onrender.com/",      // your deployed frontend — replace this
+    ],
     credentials: true,
   }),
 );
