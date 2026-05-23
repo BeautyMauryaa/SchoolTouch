@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function PublishResults() {
   const [exams, setExams] = useState([]);
-  const [selectedExamId, setSelectedExamId] = useState('');
-  const [message, setMessage] = useState('');
+  const [selectedExamId, setSelectedExamId] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = 'http://localhost:5000/api';
-  const token = localStorage.getItem('token');
+  const API_BASE_URL = "https://schooltouch-server.onrender.com/api";
+  const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
 
   const fetchExams = async () => {
@@ -17,7 +17,7 @@ export default function PublishResults() {
       setExams(res.data);
       setLoading(false);
     } catch (err) {
-      setMessage('Failed to fetch exams.');
+      setMessage("Failed to fetch exams.");
       setLoading(false);
     }
   };
@@ -28,14 +28,18 @@ export default function PublishResults() {
 
   const handlePublish = async () => {
     if (!selectedExamId) {
-      return setMessage('Please select an exam to publish results for.');
+      return setMessage("Please select an exam to publish results for.");
     }
     try {
-      await axios.patch(`${API_BASE_URL}/exams/results/publish/${selectedExamId}`, {}, { headers });
-      setMessage('Results published successfully! ✅');
+      await axios.patch(
+        `${API_BASE_URL}/exams/results/publish/${selectedExamId}`,
+        {},
+        { headers },
+      );
+      setMessage("Results published successfully! ✅");
       fetchExams();
     } catch (err) {
-      setMessage(err.response?.data?.message || 'Failed to publish results.');
+      setMessage(err.response?.data?.message || "Failed to publish results.");
     }
   };
 
@@ -47,11 +51,23 @@ export default function PublishResults() {
       <h2 className="text-2xl font-bold mb-4">Publish Results</h2>
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
         <label className="block text-gray-700">Select Exam</label>
-        <select value={selectedExamId} onChange={(e) => setSelectedExamId(e.target.value)} className="w-full mt-1 rounded-md" required>
+        <select
+          value={selectedExamId}
+          onChange={(e) => setSelectedExamId(e.target.value)}
+          className="w-full mt-1 rounded-md"
+          required
+        >
           <option value="">-- Select Exam --</option>
-          {exams.map(exam => <option key={exam._id} value={exam._id}>{exam.examName} ({exam.class.className} {exam.class.section})</option>)}
+          {exams.map((exam) => (
+            <option key={exam._id} value={exam._id}>
+              {exam.examName} ({exam.class.className} {exam.class.section})
+            </option>
+          ))}
         </select>
-        <button onClick={handlePublish} className="w-full bg-blue-600 text-white py-2 rounded-md mt-4">
+        <button
+          onClick={handlePublish}
+          className="w-full bg-blue-600 text-white py-2 rounded-md mt-4"
+        >
           Publish Results
         </button>
         {message && <p className="mt-4 text-green-500">{message}</p>}

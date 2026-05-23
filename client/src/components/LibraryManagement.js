@@ -7,7 +7,7 @@ export default function LibraryManagement() {
   const [addBookData, setAddBookData] = useState({ title: '', author: '', isbn: '', quantity: 1 });
   const [issueBookData, setIssueBookData] = useState({ studentId: '', bookId: '' });
   const [message, setMessage] = useState('');
-  const API_BASE = 'http://localhost:5000/api/library';
+  const API_BASE = 'https://schooltouch-server.onrender.com/api/library';
 
   useEffect(() => {
     fetchData();

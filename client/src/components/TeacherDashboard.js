@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import axios from 'axios';
-import Sidebar from './Sidebar';
-import './dashboard.css'; // Renamed and shared CSS file
+import React, { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import axios from "axios";
+import Sidebar from "./Sidebar";
+import "./dashboard.css"; // Renamed and shared CSS file
 
 export default function TeacherDashboard() {
   const [teacher, setTeacher] = useState(null);
@@ -10,26 +10,28 @@ export default function TeacherDashboard() {
   const [error, setError] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false); // Added state for sidebar
 
-  const API_BASE = 'http://localhost:5000/api';
+  const API_BASE = "https://schooltouch-server.onrender.com/api";
 
   useEffect(() => {
     const fetchTeacherProfile = async () => {
-      const token = localStorage.getItem('token');
-      const profileId = localStorage.getItem('profileId');
+      const token = localStorage.getItem("token");
+      const profileId = localStorage.getItem("profileId");
       const headers = { Authorization: `Bearer ${token}` };
 
       if (!profileId || !token) {
-        setError('User not found. Please log in again.');
+        setError("User not found. Please log in again.");
         setLoading(false);
         return;
       }
 
       try {
-        const res = await axios.get(`${API_BASE}/teachers/${profileId}`, { headers });
+        const res = await axios.get(`${API_BASE}/teachers/${profileId}`, {
+          headers,
+        });
         setTeacher(res.data);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch teacher profile.');
+        setError("Failed to fetch teacher profile.");
         setLoading(false);
       }
     };
@@ -52,8 +54,10 @@ export default function TeacherDashboard() {
         className={sidebarOpen ? "sidebar open" : "sidebar"}
         onClose={toggleSidebar}
       />
-      
-      {sidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
+
+      {sidebarOpen && (
+        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+      )}
 
       <div className="main-content">
         <div className="top-navbar">

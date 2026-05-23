@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
+import FirstAdminSignup from './components/FirstAdminSignup';
 import AdminDashboard from './components/AdminDashboard';
 import TeacherDashboard from './components/TeacherDashboard';
 import StudentDashboard from './components/StudentDashboard';
@@ -53,6 +54,7 @@ function App() {
         <Route path="/unauthorized" element={<h2>Access Denied</h2>} />
 
         {/* Admin Dashboard Routes */}
+        <Route path="/first-admin-signup" element={<FirstAdminSignup />} />
         <Route path="/admin/dashboard" element={<PrivateRoute roles={['admin']}><AdminDashboard /></PrivateRoute>}>
           <Route index element={<h2>Welcome to the Admin Dashboard!</h2>} />
           <Route path="students" element={<StudentManagement />} />

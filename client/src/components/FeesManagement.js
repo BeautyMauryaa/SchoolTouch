@@ -16,7 +16,7 @@ export default function FeesManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_BASE = "http://localhost:5000/api";
+  const API_BASE = "https://schooltouch-server.onrender.com/api";
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
 
@@ -52,13 +52,15 @@ export default function FeesManagement() {
       await axios.post(
         `${API_BASE}/fees/structure`,
         { ...formData },
-        { headers }
+        { headers },
       );
       setMessage("Fee structure updated successfully ✅");
       setFormData({ classId: "", feeType: "Tuition", amount: "", dueDate: "" });
       fetchData();
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to update fee structure.");
+      setError(
+        err.response?.data?.message || "Failed to update fee structure.",
+      );
     }
   };
 
@@ -93,7 +95,10 @@ export default function FeesManagement() {
       {/* Fee Structure Form */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
         <h3 className="text-xl font-bold mb-4">Set Fee Structure</h3>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
           <div>
             <label>Class</label>
             <select
@@ -149,7 +154,10 @@ export default function FeesManagement() {
             />
           </div>
           <div className="md:col-span-2">
-            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md">
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-md"
+            >
               <FaPlus className="inline-block mr-2" /> Set Fee Structure
             </button>
           </div>
@@ -172,10 +180,14 @@ export default function FeesManagement() {
           <tbody>
             {structures.map((s) => (
               <tr key={s._id}>
-                <td className="p-2">{s.class?.className} {s.class?.section}</td>
+                <td className="p-2">
+                  {s.class?.className} {s.class?.section}
+                </td>
                 <td className="p-2">{s.feeType}</td>
                 <td className="p-2">₹{s.amount}</td>
-                <td className="p-2">{new Date(s.dueDate).toLocaleDateString()}</td>
+                <td className="p-2">
+                  {new Date(s.dueDate).toLocaleDateString()}
+                </td>
               </tr>
             ))}
           </tbody>

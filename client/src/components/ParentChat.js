@@ -1,41 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import io from 'socket.io-client';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import io from "socket.io-client";
 
-const socket = io('http://localhost:5000');
-const API_BASE_URL = 'http://localhost:5000/api';
+const socket = io("http://localhost:5000");
+const API_BASE_URL = "https://schooltouch-server.onrender.com/api";
 
 export default function ParentChat() {
   const [teachers, setTeachers] = useState([]);
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [messageText, setMessageText] = useState('');
+  const [messageText, setMessageText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const parentId = localStorage.getItem('profileId');
-  const token = localStorage.getItem('token');
+  const parentId = localStorage.getItem("profileId");
+  const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
 
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/chat/teachers/${parentId}`, { headers });
+        const res = await axios.get(
+          `${API_BASE_URL}/chat/teachers/${parentId}`,
+          { headers },
+        );
         setTeachers(res.data);
         setLoading(false);
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to fetch teachers.');
+        setError(err.response?.data?.message || "Failed to fetch teachers.");
         setLoading(false);
       }
     };
     fetchTeachers();
 
-    socket.on('receiveMessage', (message) => {
+    socket.on("receiveMessage", (message) => {
       setMessages((prev) => [...prev, message]);
     });
 
     return () => {
-      socket.off('receiveMessage');
+      socket.off("receiveMessage");
     };
   }, [parentId, token]);
 
@@ -43,10 +46,13 @@ export default function ParentChat() {
     setSelectedTeacher(teacher);
     setMessages([]);
     try {
-      const res = await axios.get(`${API_BASE_URL}/chat/history/${parentId}/${teacher._id}`, { headers });
+      const res = await axios.get(
+        `${API_BASE_URL}/chat/history/${parentId}/${teacher._id}`,
+        { headers },
+      );
       setMessages(res.data);
     } catch (err) {
-      setError('Failed to fetch chat history.');
+      setError("Failed to fetch chat history.");
     }
   };
 
@@ -56,12 +62,12 @@ export default function ParentChat() {
       const messageData = {
         senderId: parentId,
         recipientId: selectedTeacher._id,
-        senderRole: 'Parent',
-        recipientRole: 'Teacher',
+        senderRole: "Parent",
+        recipientRole: "Teacher",
         messageText,
       };
-      socket.emit('sendMessage', messageData);
-      setMessageText('');
+      socket.emit("sendMessage", messageData);
+      setMessageText("");
     }
   };
 
@@ -77,7 +83,7 @@ export default function ParentChat() {
             <li
               key={teacher._id}
               onClick={() => handleSelectTeacher(teacher)}
-              className={`cursor-pointer p-2 my-1 rounded hover:bg-gray-200 ${selectedTeacher?._id === teacher._id ? 'bg-gray-300' : ''}`}
+              className={`cursor-pointer p-2 my-1 rounded hover:bg-gray-200 ${selectedTeacher?._id === teacher._id ? "bg-gray-300" : ""}`}
             >
               {teacher.name}
             </li>
@@ -94,15 +100,20 @@ export default function ParentChat() {
               {messages.map((msg, index) => (
                 <div
                   key={index}
-                  className={`flex ${msg.sender.toString() === parentId ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${msg.sender.toString() === parentId ? "justify-end" : "justify-start"}`}
                 >
-                  <div className={`rounded-lg p-2 max-w-sm ${msg.sender.toString() === parentId ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
+                  <div
+                    className={`rounded-lg p-2 max-w-sm ${msg.sender.toString() === parentId ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+                  >
                     {msg.messageText}
                   </div>
                 </div>
               ))}
             </div>
-            <form onSubmit={handleSendMessage} className="p-4 bg-gray-100 border-t flex">
+            <form
+              onSubmit={handleSendMessage}
+              className="p-4 bg-gray-100 border-t flex"
+            >
               <input
                 type="text"
                 value={messageText}
@@ -110,7 +121,10 @@ export default function ParentChat() {
                 className="flex-1 border rounded-l-lg p-2"
                 placeholder="Type a message..."
               />
-              <button type="submit" className="bg-blue-600 text-white rounded-r-lg px-4 py-2">
+              <button
+                type="submit"
+                className="bg-blue-600 text-white rounded-r-lg px-4 py-2"
+              >
                 Send
               </button>
             </form>
