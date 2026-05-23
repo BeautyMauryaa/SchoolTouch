@@ -39,6 +39,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/", (req, res) => {
   res.send("School Touch Backend Running 🚀");
 });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/public", require("./routes/public.js"));
 app.use("/api/auth", require("./routes/auth.js"));
