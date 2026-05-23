@@ -1,5 +1,5 @@
 const express = require('express');
-const { getParentsForTeacher, getTeachersForParent, getMessageHistory } = require('../Controllers/chatController.js');
+const { getParentsForTeacher, getTeachersForParent, getMessageHistory } = require('../controllers/chatController.js');
 const { protect, authorize } = require('../middleware/auth.js');
 
 const router = express.Router();

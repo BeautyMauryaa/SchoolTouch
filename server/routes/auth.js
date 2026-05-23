@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginUser, requestParentOtp, verifyParentOtp } = require('../Controllers/authController.js');
+const { loginUser, requestParentOtp, verifyParentOtp } = require('../controllers/authController.js');
 const router = express.Router();
 
 // General login for Admin, Teacher, Student

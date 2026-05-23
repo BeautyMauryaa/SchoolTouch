@@ -1,5 +1,5 @@
 const express = require('express');
-const { addClass, getClasses, getClassById, updateClass, deleteClass } = require('../Controllers/classController.js');
+const { addClass, getClasses, getClassById, updateClass, deleteClass } = require('../controllers/classController.js');
 const { protect, authorize } = require('../middleware/auth.js');
 
 

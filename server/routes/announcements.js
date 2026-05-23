@@ -1,37 +1,4 @@
-// const express = require('express');
-// const router = express.Router();
-// const {
-//     createAnnouncement,
-//     getAnnouncements,
-//     getAnnouncementsForAdmin,
-//     getTeacherClasses,
-//     updateAnnouncement,
-//     deleteAnnouncement
-// } = require('../Controllers/announcementController.js');
 
-// const { protect, authorize } = require('../middleware/auth.js');
-
-// // Admin creates announcement
-// router.post('/', protect, authorize('admin', 'teacher'), createAnnouncement);
-
-// // Get announcements (role-based)
-// router.get('/', protect, getAnnouncements);
-
-// // Get teacher classes for dropdown
-// router.get('/teacher/classes', protect, authorize('teacher'), getTeacherClasses);
-
-// // Admin fetch all announcements
-// router.get('/admin', protect, authorize('admin'), getAnnouncementsForAdmin);
-
-// // Update announcement
-// router.put('/:id', protect, updateAnnouncement);
-
-// // Delete announcement
-// router.delete('/:id', protect, deleteAnnouncement);
-
-// module.exports = router;
-
-// routes/announcementRoutes.js
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/auth.js');

@@ -1,5 +1,5 @@
 const express = require('express');
-const { submitResults, publishResults, getClassResults, getStudentResults } = require('../Controllers/resultController.js');
+const { submitResults, publishResults, getClassResults, getStudentResults } = require('../controllers/resultController.js');
 const { protect, authorize } = require('../middleware/auth.js');
 
 const router = express.Router();
